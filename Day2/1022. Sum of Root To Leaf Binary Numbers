@@ -1,0 +1,86 @@
+Problem Link:  https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+ /*   Recursive Solution
+ 
+        int sum=0;
+    public int sumRootToLeaf(TreeNode root) {
+     
+        if(root==null)
+        {
+            return 0;
+        }
+        int ans=0;
+        dfs(root,0); 
+        return sum;
+    }
+    
+    public void dfs(TreeNode root, int ans)
+    {
+        if(root.left==null&&root.right==null)  sum+=2*ans+(root.val);
+        if(root.left!=null) dfs(root.left,2*ans+root.val);
+        if(root.right!=null) dfs(root.right,2*ans+root.val);   
+    }
+    
+    */
+    
+    
+    //Iterative Solution
+    
+     class Pair
+      {
+      TreeNode f;
+      int s;
+      public Pair(TreeNode f, int s)
+      {
+          this.f=f;
+          this.s=s;
+      }
+     }
+    
+    
+    public int sumRootToLeaf(TreeNode root) {
+     
+        if(root==null)
+        {
+            return 0;
+        }
+        int ans=0;
+        int sum=0;
+        
+        
+        Stack<Object> st=new Stack<>();
+        st.push(new Pair(root,ans));
+        while(!st.isEmpty())
+        {
+            Pair p=(Pair)st.pop();
+            int val=(int)p.s;
+            TreeNode cur=(TreeNode)p.f;
+            int tot=(int)cur.val+2*(val);
+            if(cur.left!=null) st.push(new Pair(cur.left,tot));
+            
+            if(cur.right!=null) st.push(new Pair(cur.right,tot));
+            
+            if(cur.right==null&&cur.left==null) sum+=tot;
+            
+        }
+        return sum;
+    }
+    
+}
