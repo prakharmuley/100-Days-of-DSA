@@ -1,0 +1,57 @@
+Problem Link: https://leetcode.com/problems/word-pattern/
+
+
+class Solution {
+    
+    public boolean wordPattern(String pattern, String s) {
+       Map<Character,String> mp=new HashMap<>();
+        Set<String> hss=new HashSet<>();
+        Set<Character> css=new HashSet<>();
+       
+         for(Character x: pattern.toCharArray()) css.add(x);
+        int i=0,j=0;
+        
+        int n=0;
+        for(char c: s.toCharArray())
+        {
+            if(c==' ') {
+                n++;
+            }         
+        }
+        String ss[]=new String[n+1];
+     //   int j=0;
+        j=-1;
+        int k=0;
+        for(i=0;i<s.length();i++)
+        {
+            while(i<s.length()&&s.charAt(i)!=' ') i++; 
+            if(i==s.length()) break;
+            ss[k++]=s.substring(j+1,i);
+            j=i;
+            
+        }
+        ss[k]=s.substring(j+1,s.length());
+         for(String x: ss) hss.add(x);
+        // for(String x: ss) System.out.print(x+" ");
+        
+        if(n+1!=pattern.length()||css.size()!=hss.size()) return false;
+        
+        for(i=0;i<=n;i++)
+        {
+            if(mp.containsKey(pattern.charAt(i))){
+            String t=mp.get(pattern.charAt(i));
+            {
+                if(!(t.equals(ss[i]))) return false;
+               
+            }
+                
+            }
+            else  {
+               
+                mp.put(pattern.charAt(i),ss[i]);
+            }
+        }
+     
+        return true;
+    }
+}
