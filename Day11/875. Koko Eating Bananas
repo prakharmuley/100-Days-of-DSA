@@ -1,0 +1,30 @@
+Problem Link: https://leetcode.com/problems/koko-eating-bananas/
+
+
+
+class Solution {
+    public int minEatingSpeed(int[] a, int h) {
+        int l=1,r=1000000000;
+        int c=0;
+        int n=a.length;
+        
+        while(l<r)
+        {
+            int mid=l+((r-l)/2);
+            
+            c=0;
+            
+            for(int x: a)
+                c+=((int)Math.ceil((double)x/(double)mid)); 
+            
+            
+            if(c==h){  r=mid; }
+            else if(c>h){
+                l=mid+1;
+            }
+            else r=mid; 
+                 
+        }
+        return l;
+    }
+}
