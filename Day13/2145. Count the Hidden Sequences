@@ -1,0 +1,28 @@
+Problem Link: https://leetcode.com/problems/count-the-hidden-sequences/
+
+
+
+lass Solution {
+    public int numberOfArrays(int[] d, int low, int up) {
+        int ans=0;
+        int mn=Integer.MAX_VALUE;
+        int mx=Integer.MIN_VALUE;
+        int diff=0;
+        for(int x: d)
+        {
+            diff+=x;
+            mn=Math.min(diff,mn);
+            mx=Math.max(diff,mx);
+        }
+        
+        for(int i=low;i<=up;i++)
+        {
+            int l=i+mn;
+            int h=i+mx;
+            if(l>=low&&h<=up) ans++;
+        }
+  
+        return ans;
+        
+    }
+}
