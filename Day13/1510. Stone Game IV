@@ -1,0 +1,28 @@
+Problem Link: https://leetcode.com/problems/stone-game-iv/
+
+
+class Solution {
+    Boolean dp[]=new Boolean[1000000];
+    public boolean fun(int n)
+    {
+        if(dp[n]!=null) return dp[n];
+        boolean ans=false;
+        for(int i=1;i*i<=n;i++)
+        {
+            if(n-(i*i)==0)
+            {
+                ans=true;
+                break;
+            }
+            else
+            {
+                ans|=!(fun(n-i*i));
+            }
+        }
+        return dp[n]=ans;
+    }
+    public boolean winnerSquareGame(int n) {
+        if(Math.ceil(Math.sqrt(n))==Math.floor(Math.sqrt(n))) return true;
+        return fun(n);
+    }
+}
