@@ -1,0 +1,29 @@
+Problem Link:  https://leetcode.com/problems/sequential-digits/
+
+
+
+class Solution {
+    public List<Integer> sequentialDigits(int low, int high) {
+        Queue<Integer> q=new LinkedList<>();
+        List<Integer> ll=new ArrayList<>();
+    
+        for(int i = 1; i < 10; i++) q.add(i);
+        while(!q.isEmpty())
+        {
+            int x=q.poll();
+            if(x>=low&&x<=high )
+            {
+                ll.add(x);
+            }
+           if(x%10<9)
+           {
+               if((x*10)+((x%10)+1)<=high)
+               {
+                   q.add((x*10)+((x%10)+1));
+               }
+           }   
+        }
+        return ll;
+                
+    }
+}
