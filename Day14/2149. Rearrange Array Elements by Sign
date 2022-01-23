@@ -1,0 +1,57 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-277/problems/rearrange-array-elements-by-sign/
+
+
+
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        Set<Integer> p=new LinkedHashSet<>();
+       //   Set<Integer> n=new LinkedHashSet<>();
+        int n=nums.length;
+        int x=n/2;
+        Pair po[]=new Pair[n];
+           Pair ne[]=new Pair[n];
+        int i=0,j=0;
+        int k=0;
+        for(i=0;i<nums.length;i++)
+        {
+            if(nums[i]>0)
+            {
+                po[j]=new Pair(j,nums[i]);
+                j++;
+            }
+            else{
+                ne[k]=new Pair(k,nums[i]);
+                k++;
+            }
+            
+        }
+        int ans[]=new int[nums.length];
+        boolean f=true;
+        j=0;
+        k=0;
+        for(i=0;i<n;i++)
+        {
+            if(f)
+            {
+                ans[i]=po[j++].val;
+                f=!f;
+            }
+            else 
+            {
+                ans[i]=ne[k++].val;
+                f=!f;
+            }
+        }
+        return ans;
+    }
+}
+class Pair{
+    int id;
+    int val;
+    public Pair(int id, int val)
+    {
+        this.id=id;
+        this.val=val;
+    }    
+    
+}
