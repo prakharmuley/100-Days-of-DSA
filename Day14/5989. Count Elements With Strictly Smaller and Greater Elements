@@ -1,0 +1,27 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-277/problems/count-elements-with-strictly-smaller-and-greater-elements/
+
+
+
+class Solution {
+    public int countElements(int[] h) {
+     Arrays.sort(h);
+        int ans=0;
+        int n=h.length;
+        for(int i=0;i<h.length;i++)
+        {
+           
+            int cnt=0;
+             for(int j=0;j<i;j++)
+             {
+                 if(h[j]<h[i]) {cnt++; break;}
+             }
+            
+            for(int j=i+1;j<n;j++)
+             {
+                 if(h[j]>h[i]) {cnt++; break;}
+             }
+            if(cnt==2) ans++;
+        }          
+        return ans;   
+    }
+}
