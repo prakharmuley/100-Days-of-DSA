@@ -1,0 +1,21 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-277/problems/find-all-lonely-numbers-in-the-array/
+
+
+
+class Solution {
+    public List<Integer> findLonely(int[] nums) {
+          Map<Integer,Integer> map = new HashMap<>();
+        List<Integer> output = new ArrayList<>();
+        for (int n:nums){
+            map.put(n,map.getOrDefault(n,0)+1);
+            
+        }
+       
+        for (int n: map.keySet()){
+            if (!map.containsKey(n-1) && !map.containsKey(n+1) && map.get(n) ==1){
+                output.add(n); 
+            } 
+        }
+        return output;
+    }
+}
