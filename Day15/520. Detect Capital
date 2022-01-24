@@ -1,0 +1,48 @@
+Problem Link: https://leetcode.com/problems/detect-capital/
+
+
+
+class Solution {
+    public boolean detectCapitalUse(String s) {
+       //Approach 1
+       
+        boolean cap=true;
+        boolean low=true;
+        boolean f_cap=false;
+        if(s.charAt(0)>='A'&&s.charAt(0)<='Z')
+        {
+            f_cap=true;
+        }
+        int i=0;
+        for(char c: s.toCharArray())
+        {
+            if(i==0) 
+            {
+                i++;
+                continue;
+            }  
+            if(c>='a'&&c<='z')
+            {
+                cap=false;
+            }
+            else if(c>='A'&&c<='Z')
+            {
+                low=false;
+            }
+        }
+        if((f_cap&&low)||(!f_cap&&low)||(f_cap&&cap)) 
+        {
+            return true;
+        }
+        return false;
+        
+        
+        
+        
+        //Aproach 2
+        int cnt = 0; 
+        for(char c: s.toCharArray()) if('Z' - c >= 0) cnt++; 
+        return ((cnt==0 || cnt==s.length()) || (cnt==1 && 'Z' - s.charAt(0)>=0));
+        
+    }
+}
