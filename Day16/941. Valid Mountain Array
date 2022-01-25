@@ -1,0 +1,50 @@
+Problem Link: https://leetcode.com/problems/valid-mountain-array/
+
+
+Approach 1: 
+class Solution {
+    public boolean validMountainArray(int[] nums) {
+       int n=nums.length;
+         int left = 1;
+        int right = n - 2;
+        int peak  = -1;
+       
+        if(n < 3) return false;
+    
+        while(left <= right){ 
+            int mid = left + (right - left) / 2;
+            if(nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]){
+                peak = mid;
+                break;
+            }
+            else if(nums[mid] < nums[mid + 1]){
+                left = mid + 1;
+            }
+            else right = mid - 1;
+        }
+        if(peak == -1) return false;
+       
+        for(int  i = 0; i < peak; i++){
+            if(nums[i] >= nums[i + 1]) return false;
+        }
+      
+        for(int  i = peak; i < n - 1; i++){
+            if(nums[i] <= nums[i + 1]) return false;
+        }
+        return true;
+    }
+}
+
+
+Appraoch 2:
+class Solution {
+    public boolean validMountainArray(int[] a) {
+        int l=0,r=a.length-1,n=a.length;
+        while(l+1<n&&a[l]<a[l+1]) l++;
+        while(r>=1&&a[r]<a[r-1]) r--;
+        return r<n-1&&l>0&&l==r;
+    }
+}
+
+
+
