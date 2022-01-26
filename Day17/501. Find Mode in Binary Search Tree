@@ -1,0 +1,31 @@
+Problem Link: https://leetcode.com/problems/find-mode-in-binary-search-tree/
+
+
+
+class Solution {
+    public void dfs(TreeNode root,Map<Integer,Integer> mp)
+    {
+        if(root==null) return;
+        if(!mp.containsKey(root.val)) mp.put(root.val,1);
+        else mp.put(root.val,mp.get(root.val)+1);
+        dfs(root.left,mp);
+        dfs(root.right,mp);
+    }
+    public int[] findMode(TreeNode root) {
+        Map<Integer,Integer> mp=new HashMap<>();
+        dfs(root,mp);
+        int mx=0;
+        for(Map.Entry<Integer,Integer> e: mp.entrySet())
+        {
+            mx=Math.max(mx,e.getValue());
+        }
+        List<Integer> l=new ArrayList<>();
+         for(Map.Entry<Integer,Integer> e: mp.entrySet())
+        {
+           if(e.getValue()==mx) l.add(e.getKey());
+        }
+        
+         int[] arr = l.stream().mapToInt(i -> i).toArray();
+        return arr;
+    }
+}
