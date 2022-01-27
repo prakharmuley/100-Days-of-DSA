@@ -1,0 +1,92 @@
+Problem Link: https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+
+
+
+class Node{
+   Node links[]=new Node[2];
+    public Node(){
+        
+    }
+     boolean containsKey(int ind)
+    {
+        return links[ind]!=null;
+        
+    }
+      Node  get(int ind)
+    {
+       return links[ind]; 
+    }
+      void put(int ind, Node val)
+    {
+        links[ind]=val;
+    }
+};
+
+class Trie{
+    private  static Node root;
+    public Trie(){
+        root=new Node();
+    }
+    public static void insert(int num)
+    {
+        Node node=root;
+        for(int i=31;i>=0;i--)
+        {
+            int bit=num>>i;
+            bit&=1;
+            if(!node.containsKey(bit))
+            {
+                node.put(bit,new Node());
+            }
+            node=node.get(bit);
+            
+        }
+    }
+   public static int getMax(int num)
+   {
+       Node node=root;
+       int mx=0;
+       for(int i=31;i>=0;i--)
+       {
+           int bit=(num>>i);
+           bit&=1;
+           if(node.containsKey(1-bit))
+           {
+               mx=mx|(1<<i);
+               node=node.get(1-bit);
+           }
+           else
+               node=node.get(bit);
+       }
+       return mx;
+   }
+};
+
+class Solution {
+    private Trie trie=new Trie();
+    public int fun(int []a, int []b, int n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            trie.insert(a[i]);
+        }
+        int mx = 0; 
+        for(int i = 0;i<n;i++) {
+            
+            mx = Math.max(mx, trie.getMax(b[i])); 
+        }
+        return mx;
+    }
+    public int findMaximumXOR(int[] nums) {
+        int n=nums.length; 
+        int a[]=new int[n];
+        int b[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=nums[i];
+            b[i]=nums[i];
+        }
+        return fun(a,b,n);
+        
+    }
+}
