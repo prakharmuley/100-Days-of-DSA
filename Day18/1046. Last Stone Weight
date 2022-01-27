@@ -1,0 +1,26 @@
+Problem Link: https://leetcode.com/problems/last-stone-weight/
+
+
+
+class Solution {
+    public int lastStoneWeight(int[] a) {
+        PriorityQueue<Integer> pq=new PriorityQueue<>((p,q)->(q-p));
+        for(int x: a) pq.offer(x);
+        while(!pq.isEmpty())
+        {
+            int y=pq.poll();
+            
+            if(!pq.isEmpty()){
+            int x=pq.poll(); 
+            if(y!=x)
+            {
+                pq.offer(y-x);
+            }
+                
+            }
+            else return y;  
+        }
+        return 0;
+        
+    }
+}
