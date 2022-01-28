@@ -1,0 +1,93 @@
+Problem Link: https://leetcode.com/problems/design-add-and-search-words-data-structure/
+
+
+
+class Node{
+    Node link[]=new Node[26];
+    boolean f=false;
+    public Node(){
+        
+    }
+    
+    Node get(char ind)
+    {
+        return link[ind-'a'];
+    }
+    boolean containsKey(char ind)
+    {
+        return link[ind-'a']!=null;
+    }
+     void put(char ind, Node val)
+    {
+        link[ind-'a']=val;
+    }
+    void setEnd()
+    {
+        f=true;
+    }
+    boolean isEnd()
+    {
+        return f;
+    }
+};
+class Trie{
+    public static  Node root;
+    public Trie(){
+        root=new Node();
+    }
+    public static void insert(char[] ch)
+    {
+        Node node=root;
+        
+        for(char c: ch)
+        {
+            if(!node.containsKey(c))
+            {
+                node.put(c,new Node());
+            }
+            node=node.get(c);
+        }
+        node.setEnd();
+    }
+
+    
+};
+class WordDictionary {
+   Trie trie;
+    public WordDictionary() {
+        trie=new Trie();
+     
+    }
+    public boolean fun(char[] ch, int k,Node node)
+    {
+        if(k==ch.length) return node.isEnd();
+        if(ch[k]!='.')
+        {
+            node=node.get(ch[k]);
+                return node!=null&&fun(ch,k+1,node);
+        }
+        for (int i = 0; i < 26; i++) {
+                if (node.get((char)(i+'a')) != null) {
+                    if (fun(ch, k + 1, node.get((char)(i+'a')))){
+                        return true;
+                    }
+                }
+            }
+        return false;
+    }
+    
+    public void addWord(String word) {
+        trie.insert(word.toCharArray());
+    }
+    
+    public boolean search(String word) {
+       return fun(word.toCharArray(),0,trie.root);
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
