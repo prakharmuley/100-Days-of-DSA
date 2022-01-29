@@ -1,0 +1,23 @@
+Problem Link: https://leetcode.com/problems/furthest-building-you-can-reach/
+
+
+
+class Solution {
+    public int furthestBuilding(int[] h, int bricks, int ladders) {
+        int i=0;
+        int ans=0;
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        int n=h.length;
+        while(i+1<h.length)
+        {
+            int d=h[i+1]-h[i];
+            if(d>0) pq.offer(d);
+            if(pq.size()>ladders) bricks-=pq.poll();
+            if(bricks<0) return i; 
+            
+            i++;
+        }
+        return n-1;
+        
+    }
+}
