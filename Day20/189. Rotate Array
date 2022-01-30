@@ -1,0 +1,29 @@
+Porblem Link: https://leetcode.com/problems/rotate-array/
+
+
+
+class Solution {
+    public void rev(int []a, int x, int y)
+    {
+        while(y>x)
+        {
+            int temp=a[y];
+            a[y]=a[x];
+            a[x]=temp;
+            y--;
+            x++;
+        }
+       
+    }
+    public void rotate(int[] a, int k) {
+        
+            k%=a.length;
+            int in=a.length-1-k;
+            rev(a,0,in);
+            rev(a,in+1,a.length-1);
+            rev(a,0,a.length-1);
+            
+        
+        
+        }
+}
