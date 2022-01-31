@@ -1,0 +1,44 @@
+Problem Link: https://leetcode.com/problems/k-highest-ranked-items-within-a-price-range/
+
+
+
+class Solution {
+    int x[]=new int[]{0,-1,0,1,0};
+ 
+    
+    public List<List<Integer>> highestRankedKItems(int[][] g, int[] p, int[] start, int k) {
+       PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->(a[0]==b[0])?a[1]==b[1]?a[2]==b[2]?a[3]-b[3]:a[2]-b[2]:a[1]-b[1]:a[0]-b[0]);
+       List<List<Integer>> l=new ArrayList<>();
+       pq.offer(new int[]{0,g[start[0]][start[1]],start[0],start[1]});    
+       g[start[0]][start[1]]*=-1;
+        while(!pq.isEmpty())
+        {
+            int[] cur=pq.poll();
+            int dis=cur[0];
+            int price=cur[1];
+            int r=cur[2];
+            int c=cur[3];
+           if(price>=p[0]&&price<=p[1]&&l.size()<k)
+           {
+              List<Integer> ll=new ArrayList<>();
+               ll.add(r);
+               ll.add(c);
+               l.add(ll);
+               
+           }
+            
+            for(int i=0;i<4;i++)
+            {
+                int aa=r+x[i];
+                int bb=c+x[i+1];
+                if(aa>=0&&aa<g.length&&bb>=0&&bb<g[0].length&&g[aa][bb]>0)
+                {
+                    pq.offer(new int[]{dis+1,g[aa][bb],aa,bb});
+                   g[aa][bb]*=-1;                 
+                             
+                }
+            }         
+        }          
+        return l; 
+    }
+}
