@@ -1,0 +1,27 @@
+Problem Link: https://leetcode.com/problems/richest-customer-wealth/
+
+
+
+class Solution {
+    public int maximumWealth(int[][] a) {
+        int p[]=new int[a.length];
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=0;j<a[0].length;j++){
+            p[i]+=a[i][j];
+                }
+        }
+        int mx=-1;
+        int id=-1;
+        for(int i=0;i<p.length;i++)
+        {
+            if(p[i]>mx)
+            {
+                mx=p[i];
+               
+            }
+        }
+        return mx;
+        
+    }
+}
