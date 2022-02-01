@@ -1,0 +1,35 @@
+Problem Link: https://leetcode.com/problems/sort-integers-by-the-power-value/
+
+
+
+class Solution {
+    public int getKth(int lo, int hi, int k) {
+        int x=0;
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->(a[1]==b[1])?a[0]-b[0]:a[1]-b[1]);
+        for(int i=lo;i<=hi;i++)
+        {
+            int c=0;
+            x=i;
+            while(x!=1)
+            {
+            while(((x&1)==0))
+            {
+                x>>=1;
+                c++;
+            }
+            while(((x&1)==1)&&x!=1)
+            {
+                x*=3;
+                x+=1;
+                c++;
+            }
+            }
+            pq.offer(new int[]{i,c});
+        }
+        while(k-->1) pq.poll();
+        
+        int cur[]=pq.peek();
+        return cur[0];
+        
+    }
+}
