@@ -1,0 +1,31 @@
+Problem Link: https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+
+
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int c=1;
+        int prev=nums[0];
+        int j=1;
+        for(int i=1;i<nums.length;i++)
+        {
+            if(prev==nums[i]&&c<2)
+            {
+               nums[j]=prev;
+                j++;
+                c++;
+                
+                
+            } 
+            else if(nums[i]!=prev)
+            {
+                nums[j]=nums[i];
+                prev=nums[i];
+                j++;
+                c=1;
+            }
+        }
+        return j;
+        
+    }
+}
