@@ -1,0 +1,37 @@
+Problem Link: https://leetcode.com/problems/smallest-value-of-the-rearranged-number/
+
+
+
+class Solution {
+    public long smallestNumber(long num) {
+       if(num==0) return 0;
+        boolean neg=false;
+         if(num<0) neg=true;
+        
+        if(neg) num*=-1;
+        
+         char ch[]=String.valueOf(num).toCharArray();
+         Arrays.sort(ch);
+        String str=new String();
+        if(!neg)
+        { 
+            int i=0;
+            for(;i<ch.length;i++)
+            {
+                if(ch[i]!='0') break;
+            }
+            char temp=ch[i];
+            ch[i]=ch[0];
+            ch[0]=temp;
+            str=new String(ch);
+        }
+        else
+        {
+            
+            str=new String(ch);
+            StringBuilder sb=new StringBuilder(str);
+            str="-".concat(sb.reverse().toString());
+        }    
+        return Long.valueOf(str);    
+    }
+}
