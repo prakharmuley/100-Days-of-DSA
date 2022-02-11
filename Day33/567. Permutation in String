@@ -1,0 +1,37 @@
+Problem Link: https://leetcode.com/problems/permutation-in-string/
+
+
+
+class Solution {
+    boolean fun(int a[], int b[], int n)
+    {
+        for(int i=0;i<26;i++)
+        {
+            if(a[i]!=b[i]) return false;
+        }
+        return true;
+    }
+    public boolean checkInclusion(String s1, String s2) {
+        int h1[]=new int[26];
+        int h2[]=new int[26];
+        if(s1.length()>s2.length()) {return false;}
+        
+        for(char c: s1.toCharArray()) h1[c-'a']++;
+        for(int i=0;i<s1.length();i++)  h2[s2.charAt(i)-'a']++;
+        int l=0,r=s1.length()-1;
+       while(r<s2.length())
+       {
+         if(fun(h1,h2,26)) {return true;}
+           
+           h2[s2.charAt(l)-'a']--;
+           l++;
+           r++;
+           if(r==s2.length()) break;
+           h2[s2.charAt(r)-'a']++;
+         
+              if(fun(h1,h2,26)) {return true;}   
+       }
+        return false;
+        
+    }
+}
