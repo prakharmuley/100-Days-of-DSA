@@ -1,0 +1,37 @@
+Problem Link: https://leetcode.com/problems/find-median-from-data-stream/
+
+
+
+class MedianFinder {
+
+    /** initialize your data structure here. */
+    PriorityQueue<Integer> pq;
+    PriorityQueue<Integer> pqq;
+    List<Integer> l;
+    int n;
+    public MedianFinder() {
+        pq=new PriorityQueue<>((a,b)->(a-b));
+          pqq=new PriorityQueue<>((a,b)->(b-a));
+        
+    }
+    
+    public void addNum(int num) {
+        pqq.offer(num);
+        pq.offer(pqq.poll());
+        if(pq.size()>pqq.size()) pqq.offer(pq.poll());
+      
+    }
+    
+    public double findMedian() {
+        if(pqq.size()>pq.size()) return (double)pqq.peek();
+        
+        return (double)(pqq.peek()+pq.peek())/2.0;
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
