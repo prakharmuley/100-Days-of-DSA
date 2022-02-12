@@ -1,0 +1,60 @@
+Problem Link: https://leetcode.com/problems/word-ladder-ii/
+
+
+
+class Solution {
+    private List<List<String>> l=new ArrayList<>();
+    private Set<String> hs=new HashSet<>();
+    private Queue<List<String>> q=new LinkedList<>();
+    private Set<String> vis=new HashSet<>();
+    public void fun(String st, String end)
+    {
+          q.add(Arrays.asList(st));
+          List<String> ll=new ArrayList<>(); 
+          ll.add(st);
+        while(!q.isEmpty())
+        {
+            int n=q.size();  
+            for(int i=0;i<n;i++)
+            {
+                List<String> cur=q.poll();
+                String last_word=cur.get(cur.size()-1);
+                List<String> list=new ArrayList<>();
+                char ch[]=last_word.toCharArray();
+                for(int j=0;j<ch.length;j++)
+                {
+                 char temp=ch[j];
+                 for(char c='a';c<='z';c++) 
+                 {
+                    ch[j]=c;
+                     String s=new String(ch);
+                  
+                     if(hs.contains(s))
+                     {   
+                        list.add(s);
+                     }
+                 }
+                    ch[j]=temp;
+                }
+                for(String s: list) 
+                {
+                    List<String> nw_path=new ArrayList<>(cur);
+                    vis.add(s);
+                    nw_path.add(s);
+                    if(s.equals(end)) l.add(nw_path);
+                    else q.offer(nw_path);   
+                }
+              
+            }
+              for(String s: vis) hs.remove(s);
+        }
+    }
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        hs=new HashSet<>(wordList);
+        vis=new HashSet<>();
+        if(!hs.contains(endWord)) return l;
+        vis.add(beginWord);
+       fun(beginWord,endWord);
+        return l;
+    }
+}
