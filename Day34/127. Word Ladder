@@ -1,0 +1,50 @@
+Problem Link: https://leetcode.com/problems/word-ladder/
+
+
+
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+     Queue<String> q=new LinkedList<>();
+        boolean ff=false;
+        for(String ss: wordList)
+        {
+            if(ss.contains(endWord)) {ff=true; break;}
+        }
+        if(!ff) return 0;
+        Set<String> hs=new HashSet<>(wordList);
+     q.add(beginWord);
+   
+        int cnt=0;
+     while(!q.isEmpty())
+     {
+      int size=q.size();
+        cnt++; 
+      for(int j=0;j<size;j++) 
+      { 
+         char ch[]=q.peek().toCharArray();
+         q.poll();
+        for(int i=0;i<ch.length;i++)
+        {
+          char temp=ch[i];
+          
+          for(char c='a';c<='z';c++)
+          {
+              ch[i]=c;
+              String s=new String(ch); 
+              if(hs.contains(s))
+              {
+               if(s.equals(endWord)) 
+                {
+                 return cnt+1;
+                }
+                 q.add(s);
+                 hs.remove(s);
+              }   
+          } 
+          ch[i]=temp;
+        } 
+      }
+     }
+        return 0;
+    }
+}
