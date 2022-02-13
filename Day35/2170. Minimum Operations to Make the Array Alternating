@@ -1,0 +1,76 @@
+Problem Link: https://leetcode.com/problems/minimum-operations-to-make-the-array-alternating/
+
+
+
+class Solution {
+    public int minimumOperations(int[] nums) {
+      int freq[][] = new int[100005][2];
+        int i, j, k, ans=0;
+        for(i = 0; i < nums.length; i++) {
+    			freq[nums[i]][i&1]++;
+    		}
+    		
+    		for(i = 1, j=k=0; i <= 100000; i++) {
+			
+    		ans = Math.max(ans, Math.max(freq[i][0] + k, freq[i][1] + j));
+            j = Math.max(j, freq[i][0]);
+            k = Math.max(k, freq[i][1]);
+        }
+        return nums.length - ans;   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//         int alt=0;
+//         int mxo=0;
+//         int mxe=0;
+//         int c=1;
+//         boolean f=false;
+//         Map<Integer,Integer> e=new HashMap<>();
+//         Map<Integer,Integer> o=new HashMap<>();
+//         int el=0;
+//         int ol=0;
+//          for(int i=0;i<nums.length;i++)
+//         {
+//             if(i%2==0)
+//             {e.put(nums[i],e.getOrDefault(nums[i],0)+1); el++;}
+//             else
+//             {o.put(nums[i],o.getOrDefault(nums[i],0)+1); ol++; }
+                 
+//         }
+//         PriorityQueue<Integer> even=new PriorityQueue<>((a,b)->(e.get(b)-e.get(a)));
+//         PriorityQueue<Integer> odd=new PriorityQueue<>((a,b)->(o.get(b)-o.get(a)));
+//         even.addAll(e.keySet());
+//         odd.addAll(o.keySet());
+//         while(!even.isEmpty()&&!odd.isEmpty()&&even.peek()==odd.peek())
+//         {
+//             if(e.get(even.peek())>o.get(odd.peek())) odd.poll();
+//             else even.poll();
+//         }
+//         return (even.isEmpty()?el:el-e.get(even.peek()))+(odd.isEmpty()?ol:ol-o.get(odd.peek()));
+        
+
+    }
+}
