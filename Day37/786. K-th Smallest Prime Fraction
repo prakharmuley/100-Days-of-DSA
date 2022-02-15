@@ -1,0 +1,38 @@
+Problem Link: https://leetcode.com/problems/k-th-smallest-prime-fraction/
+
+
+
+class Solution {
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        
+        int n=arr.length;
+        if(k==1) return new int[]{arr[0],arr[n-1]};
+        PriorityQueue< int[] > pq=new PriorityQueue<>(new Comparator<int[]>(){
+            @Override
+            public int compare(int o1[], int o2[])
+            {
+                int x=arr[o1[0]]*arr[o2[1]];
+                int y=arr[o2[0]]*arr[o1[1]];
+                return x-y;
+            }
+        });
+        for(int i=0;i<n-1;i++)
+        {
+            if(i==k-1) break;
+            pq.add(new int[]{i,n-1});
+        }
+        while(!pq.isEmpty()&&k-->1)
+        {
+            
+            int temp[]=pq.poll();
+            if(temp[1]-1>temp[0]) 
+            {
+                temp[1]-=1;
+                pq.offer(temp);
+            }
+        }
+       
+        return new int[]{arr[pq.peek()[0]],arr [pq.peek()[1]]};
+        
+    }
+}
