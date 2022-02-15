@@ -1,0 +1,80 @@
+Problem Link: 
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ 
+class Solution {
+// Brute Force
+
+
+//    public void dfs(TreeNode root, Stack<TreeNode> st)
+//    {
+//        if(root==null) return;
+//        dfs(root.right,st);
+//        st.push(root);
+//        dfs(root.left,st);
+//    }
+//     public TreeNode increasingBST(TreeNode root) {
+//          Stack<TreeNode> st=new Stack<>();
+//         dfs(root, st);
+//         TreeNode rooot=null;
+//         TreeNode node=st.pop();
+//         rooot=node;
+//         node.left=null;
+//         while(!st.isEmpty())
+//         {
+//             node.right=st.pop();
+//             node=node.right;
+//             node.left=null;
+//         } 
+//         return rooot;
+//     }
+
+
+
+//Optimal 
+
+    TreeNode res;
+    TreeNode prev;
+    public void dfs(TreeNode root)
+    {
+        if(root==null) return;
+        dfs(root.left);
+        if(res==null) res=root;
+        else prev.right=root;
+        
+        prev=root;
+        root.left=null;
+        dfs(root.right);
+    }
+     public TreeNode increasingBST(TreeNode root) {
+     dfs(root);
+     return res;    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+    
+}
