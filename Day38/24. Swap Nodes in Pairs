@@ -1,0 +1,61 @@
+Problem Link: https://leetcode.com/problems/swap-nodes-in-pairs/
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head==null||head.next==null)
+        {
+            return head;
+        }
+        
+        ListNode even_head =head.next;
+        ListNode evh=even_head;
+        ListNode odd_head =head;
+        ListNode odh=odd_head;
+        
+        while(evh!=null&&evh.next!=null)
+        {
+            odh.next=evh.next;
+            odh=odh.next;
+            evh.next=odh.next;
+            evh=evh.next;
+        }
+        odh.next=null;
+        ListNode h1=odd_head;
+        ListNode h2=even_head;
+
+        ListNode n1=null;
+        ListNode n2=null;
+      
+ 
+      
+        while(even_head.next!=null&&odd_head!=null&&even_head!=null&&odd_head.next!=null)
+        {
+            n2=even_head.next;
+            n1=odd_head.next;
+           
+            even_head.next=odd_head;
+            
+            odd_head.next=n2;
+           
+            even_head=n2;
+            odd_head=n1;
+              
+        }
+        
+       even_head.next=odd_head;
+       
+        return h2;
+    }
+}
