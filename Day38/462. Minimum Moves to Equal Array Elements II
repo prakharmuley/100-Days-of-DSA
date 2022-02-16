@@ -1,0 +1,66 @@
+Problem Link: https://leetcode.com/problems/minimum-moves-to-equal-array-elements-ii/
+
+
+
+class Solution {
+    
+  //Appraoch 1
+    
+   public int minMoves2 (int[] nums) {
+        Arrays.sort (nums);
+        int left = 0, right = nums.length - 1, moves = 0;
+        while (left < right)
+            moves += nums [right--] - nums [left++];
+        return moves;
+    }  
+    
+  //Approach 2  
+      
+//     public int minMoves2(int[] nums) {
+//         int ans=0;
+//         long sum=0;
+//         int n=nums.length;
+        
+//         for(int x: nums) sum+=(long)x;
+//         Arrays.sort(nums);
+//         if(n%2==1)
+//         {
+//             int m1=n/2;
+//             int l=0;
+//             int r=n-1;
+//             while(l<m1)
+//             {
+//                 ans+=(nums[m1]-nums[l]);
+//                 l++;
+//             }
+//             while(r>m1)
+//             {
+//                 ans+=(nums[r]-nums[m1]);
+//                 r--;
+//             }
+//         }
+//         else
+//         {
+//             int m1=n/2;
+//             int m2=m1-1;
+//             int mid=(m1+m2)/2;
+//              int l=0;
+//             int r=n-1;
+//             while(l<mid)
+//             {
+//                 ans+=(nums[mid]-nums[l]);
+//                 l++;
+//             }
+//             while(r>mid)
+//             {
+//                 ans+=(nums[r]-nums[mid]);
+//                 r--;
+//             }
+                
+//         }
+//         return ans;
+//     }
+    
+    
+    
+}
