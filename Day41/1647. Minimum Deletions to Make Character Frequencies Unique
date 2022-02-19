@@ -1,0 +1,22 @@
+Problem Link: https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
+
+
+
+class Solution {
+    public int minDeletions(String s) {
+        int a[]=new int[26];      
+        for(char c: s.toCharArray()) a[c-'a']++;     
+        Set<Integer> hs=new HashSet<>();
+        int ans=0;
+        for(int x: a)
+        {
+            while(x>0&&!hs.add(x))
+            {
+                --x;
+                ans++;
+            }
+        }
+          
+        return ans;
+    }
+}
