@@ -1,0 +1,46 @@
+Problem Link: https://leetcode.com/contest/biweekly-contest-72/problems/maximum-split-of-positive-even-integers/
+
+
+
+class Solution {
+    public List<Long> maximumEvenSplit(long finalSum) {
+        List<Long> ll=new ArrayList<>();
+       if(finalSum%2==1) return ll;
+        if(finalSum==2) return  (Arrays.asList((long)2));
+        
+        long t=finalSum/2;
+        
+        long l=1;
+        long r=t;
+        long ans=0;
+        while(l<r)
+        {
+            long m=l+((r-l)/2);
+            if(m*(m+1)/2<=t)
+            {
+                ans=m;
+                l=m+1;
+            }
+            else
+            {
+                r=m;
+            }
+            
+        }
+        long sum=0;
+        for(int i=1;i<=ans;i++)
+        {
+            ll.add((long)(2*i));
+            sum+=(long)(2*i);
+        }
+        if(sum==finalSum) return ll;
+        if(ll.size()!=0){
+        long store=ll.remove(ll.size()-1);
+        sum-=store;
+        ll.add(finalSum-sum);
+        }
+        return ll;
+        
+            
+    }
+}
