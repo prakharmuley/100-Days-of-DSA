@@ -1,0 +1,52 @@
+Problem Link: https://leetcode.com/problems/minimize-deviation-in-array/
+
+
+
+//Approach 1
+class Solution {
+    public int minimumDeviation(int[] nums) {
+    TreeSet<Integer> hs=new TreeSet<>();
+        for(int x: nums)
+        {
+            if(x%2==1) x*=2;
+            
+            hs.add(x);
+        }
+         int mxd=hs.last()-hs.first();
+        int cur=0;
+        while(hs.size()>0&&hs.last()%2==0)
+        {
+            cur=hs.last();
+            hs.remove(cur);
+            hs.add(cur/2);
+            mxd=Math.min(mxd,hs.last()-hs.first());
+        }
+        return mxd;   
+    }
+    
+//    Approach 2
+//     public int minimumDeviation(int[] nums) {
+//     PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->(b-a));
+//         int mn=Integer.MAX_VALUE;
+//         for(int x: nums)
+//         {
+//             if(x%2==1) x*=2;
+            
+//             pq.offer(x);
+//             mn=Math.min(x,mn);
+//         }
+//         int mxd=pq.peek()-mn;
+//         int cur=0;
+//         while(!pq.isEmpty()&&pq.peek()%2==0)
+//         {
+//              cur=pq.poll();
+//              mxd=Math.min(mxd,cur-mn);
+//              pq.offer(cur/2);
+//              mn=Math.min(mn,cur/2);
+//              mxd=Math.min(mxd,pq.peek()-mn);           
+//         }
+//           mxd=Math.min(mxd,pq.peek()-mn);
+        
+//         return mxd;   
+//     }
+}
