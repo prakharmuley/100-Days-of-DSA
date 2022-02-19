@@ -1,7 +1,7 @@
 Problem Link: https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
 
 
-
+//Approach 1
 class Solution {
     public int minDeletions(String s) {
         int a[]=new int[26];      
@@ -13,6 +13,36 @@ class Solution {
             while(x>0&&!hs.add(x))
             {
                 --x;
+                ans++;
+            }
+        }
+          
+        return ans;
+    }
+}
+
+//Appraoch 2
+class Solution {
+    public int minDeletions(String s) {
+        int a[]=new int[26];      
+        for(char c: s.toCharArray()) a[c-'a']++;     
+        PriorityQueue<Integer> pq=new PriorityQueue<>((x,y)->((y)-(x)));
+        
+        for(int x: a)
+        {
+            if(x>0) pq.offer(x);
+        }
+        int ans=0;
+        while(!pq.isEmpty())
+        {
+            int freq=pq.poll();
+            if(pq.isEmpty()) return ans;
+            
+            if(freq==pq.peek()) 
+            {
+               if(freq>1) {
+                 pq.offer(freq-1);
+               }
                 ans++;
             }
         }
