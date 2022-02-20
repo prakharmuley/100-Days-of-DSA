@@ -1,0 +1,40 @@
+Problem Link: https://leetcode.com/problems/remove-covered-intervals/
+
+
+
+class Solution {
+    public int removeCoveredIntervals(int[][] intervals) {
+        Arrays.sort(intervals,(a,b)->(a[0]-b[0]!=0?a[0]-b[0]:b[1]-a[1]));
+        int cur[]=new int[2];
+        
+        int i=0;
+        int c=0;
+        while(i<intervals.length)
+        {
+            
+            if(i==0)
+            {
+                cur[0]=intervals[i][0];
+                cur[1]=intervals[i][1];
+                c++;
+                i++;
+                continue;
+            }
+            if(i<intervals.length&&intervals[i][0]>=cur[0]&&intervals[i][1]<=cur[1])
+            {
+                intervals[i][0]=Math.min(cur[0],intervals[i][0]);
+                intervals[i][1]=Math.max(cur[1],intervals[i][1]);
+               
+            }
+           else{
+                 cur[0]=intervals[i][0];
+                cur[1]=intervals[i][1];
+                c++;
+           }
+ 
+            i++;
+        }
+        
+        return c;
+    }
+}
