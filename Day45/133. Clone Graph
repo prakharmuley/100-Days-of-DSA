@@ -49,3 +49,26 @@ class Solution {
         return mp.get(temp);
     }
 }
+
+//DFS Approach
+class Solution {
+    public Node dfs(Node root, Map<Node,Node> mp)
+    {
+        if(mp.containsKey(root)) return mp.get(root);
+        Node copy=new Node(root.val);
+        mp.put(root,copy);
+        for(Node node: root.neighbors)
+        {
+           copy.neighbors.add(dfs(node,mp));
+        }
+        return copy;
+    }
+     public Node cloneGraph(Node node) {
+        if(node==null) return null;
+        Map<Node,Node> mp=new HashMap<>();
+       return dfs(node,new HashMap<>());
+       
+    }
+    
+
+}
