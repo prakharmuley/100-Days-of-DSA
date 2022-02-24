@@ -12,6 +12,8 @@ Problem Link: https://leetcode.com/problems/sort-list/
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ 
+ //Brute Force
 class Solution {
     public ListNode sortList(ListNode head) {
         if(head==null) return null;
