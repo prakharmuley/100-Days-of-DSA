@@ -1,0 +1,46 @@
+Problem Link: 
+
+
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public int maxDepth(Node root) {
+        if(root==null) return  0;
+        if(root.children.size()==0) return 1;
+        Queue<List<Node>> q=new LinkedList<>();
+        q.offer(Arrays.asList(root));
+        int lvl=0;
+        while(!q.isEmpty())
+        {
+            int n=q.size();
+            for(int i=0;i<n;i++){ 
+            Node p=q.poll().get(0);
+            System.out.print(p.val+"\n");
+            for(Node child: p.children)
+            {
+                q.offer(Arrays.asList(child));
+            } 
+           }
+            lvl++;
+        }
+        return lvl;
+    }
+}
