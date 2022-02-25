@@ -1,0 +1,43 @@
+Problem Link: https://leetcode.com/problems/compare-version-numbers/
+
+
+
+class Solution {
+    public int compareVersion(String v1, String v2) {
+        int i=0;
+        int j=0;
+        int sti=0;
+        int stj=0; 
+        if(v1.equals(v2)) return 0;
+        while(i<v1.length()&&j<v2.length())
+        { 
+            while(i<v1.length()&&v1.charAt(i)!='.') i++;
+            while(j<v2.length()&&v2.charAt(j)!='.') j++;  
+            if(Integer.parseInt(v1.substring(sti,i))>Integer.parseInt(v2.substring(stj,j)))
+            {
+                return 1;
+            }
+             if(Integer.parseInt(v1.substring(sti,i))<Integer.parseInt(v2.substring(stj,j)))
+            {
+                return -1;
+            }
+            i++;            
+            j++;           
+            sti=i;
+            stj=j;   
+        }
+            if(i>=v1.length()&&j<v2.length()) 
+             {
+                 while(j<v2.length()&&('0'==v2.charAt(j)||v2.charAt(j)=='.')) j++; 
+                 if(j>=v2.length()) return 0;
+                 else return -1;
+             } 
+             if(j>=v2.length()&&i<v1.length())
+             {
+                 while(i<v1.length()&&('0'==v1.charAt(i)||v1.charAt(i)=='.')) i++;
+                 if(i>=v1.length()) return 0;
+                 else return 1;
+             }
+        return 0;
+    }
+}
