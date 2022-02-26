@@ -1,0 +1,41 @@
+Problem Link: https://leetcode.com/problems/shortest-path-visiting-all-nodes/
+
+
+
+class Solution {
+    public int shortestPathLength(int[][] graph) {
+       
+        Queue<int[]> q=new LinkedList<>();
+        int n=graph.length;
+        if(n==1) return 0;
+        int ans=Integer.MAX_VALUE;
+        int last=(1<<n)-1;
+        boolean v[]=new boolean[n+1];
+        for(int i=0;i<n;i++) q.offer(new int[]{i,(1<<i)});
+
+        int a[][]=new int[n][last+1];
+        int c=0;
+        while(!q.isEmpty())
+        {
+            int l=q.size();
+            c++;
+          for(int i=0;i<l;i++)
+           {   
+            int[] p=q.poll();
+            int node=p[0];    
+            int state=p[1];    
+            for(int child: graph[node]) 
+            {
+              int new_state=(state)|(1<<child);   
+              if(a[child][new_state]==1) continue;    
+                a[child][new_state]=1;
+                if(new_state==last) return c;  
+                q.offer(new int[]{child,new_state});  
+            }
+                
+          }
+          
+        }
+        return c;     
+    }
+}
