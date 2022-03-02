@@ -1,23 +1,24 @@
 Problem Link: https://leetcode.com/problems/is-subsequence/
 
 
-
+//DP
 class Solution {
-public:
-    bool fun(string &s,string &t,int n,int m)
+    static Integer dp[][];
+    public static int lcs(char[] s, char[] t, int n, int m)
     {
-       if(n==0)
-           return true;
-        if(m==0)
-           return false; 
-        if(s[n-1]==t[m-1])
-        {
-            return fun(s,t,n-1,m-1);
-        }        
-        return fun(s,t,n,m-1);
-    }
-    bool isSubsequence(string s, string t) {
+         if (m == 0 || n == 0)  
+            return 0;  
+          if(dp[n-1][m-1]!=null) return dp[n-1][m-1];
+          
+        if (s[n - 1] == t[m - 1])  
+             dp[n-1][m-1] =1+ lcs(s, t, n - 1, m - 1);  
+        else
+            dp[n-1][m-1]=Math.max(lcs(s, t, n, m - 1), lcs(s, t, n-1, m)); 
         
-        return fun(s,t,s.size(),t.size());
+        return dp[n-1][m-1];
     }
-};
+    public boolean isSubsequence(String s, String t) {
+        dp=new Integer[s.length()][10005];
+        return (lcs(s.toCharArray(),t.toCharArray(),s.length(),t.length())==s.length()); 
+    }
+}
