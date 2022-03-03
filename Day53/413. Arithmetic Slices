@@ -1,0 +1,28 @@
+Problem Link: https://leetcode.com/problems/arithmetic-slices/
+
+
+
+class Solution {
+    public int numberOfArithmeticSlices(int[] a) {
+        int ans=0;
+        int d=0;
+        int cur=0;
+        int cnt=0;
+        if(a.length<3) return 0;
+        for(int i=1;i<a.length-1;i++)
+        {
+           if(a[i+1]-a[i]==a[i]-a[i-1])
+           {
+               d=a[i]-a[i-1]; 
+               cur=d;
+               cnt++;
+               ans+=cnt;
+           }
+            else
+            {
+                cnt=0;
+            }   
+        }
+        return ans;
+    }
+}
