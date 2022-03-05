@@ -1,0 +1,28 @@
+Problem Link: https://leetcode.com/contest/biweekly-contest-73/problems/most-frequent-number-following-key-in-an-array/
+
+
+
+class Solution {
+    public int mostFrequent(int[] nums, int key) {
+        int t=0;
+        int h[]=new int[10001];
+        for(int i=0;i<nums.length-1;i++)
+        {
+            if(nums[i]==key) h[nums[i+1]]++;
+        }
+        int mx=0;
+        
+        for(int i=1;i<=1000;i++)
+        {
+            if(h[i]>0)
+            {
+                if(h[i]>mx)
+                {
+                    mx=h[i];
+                    t=i;
+                }
+            }
+        }
+        return t;
+    }
+}
