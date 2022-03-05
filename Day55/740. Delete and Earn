@@ -1,0 +1,32 @@
+Problem Link: https://leetcode.com/problems/delete-and-earn/
+
+
+
+class Solution {
+    Integer dp[];
+    public int fun(int[] a, int i)
+    {
+        if(i>=a.length) return 0;
+        if(dp[i]!=null) return dp[i];
+        int pos=-1,d=0;
+        int ans=0;
+        for(int j=i;j<a.length;j++)
+        {
+            if(a[j]==a[i]) {d++; ans+=a[i];}
+            else if(a[i]+1==a[j]) pos=j;
+            else break;
+        }
+        
+        if(pos!=-1) return dp[i]=Math.max(fun(a,pos+1)+ans,fun(a,i+1));
+        else
+        return dp[i]=Math.max(fun(a,i+d)+ans,fun(a,i+d));
+        
+        
+    }
+    public int deleteAndEarn(int[] nums) {
+        Arrays.sort(nums);
+        dp=new Integer[200004];
+        return fun(nums,0);
+    }
+    
+}
