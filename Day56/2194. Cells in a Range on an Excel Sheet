@@ -1,0 +1,24 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-283/problems/cells-in-a-range-on-an-excel-sheet/
+
+
+
+class Solution {
+    public List<String> cellsInRange(String s) {
+        int sti=s.charAt(1)-'0';
+        int end=s.charAt(s.length()-1)-'0';
+        char stc=s.charAt(0);
+        char enc=s.charAt(s.length()-2);
+        List<String> l=new ArrayList<>();
+        for(char c='A';c<='Z';c++)
+        {
+            if(c>=stc&&c<=enc){
+            for(int j=sti;j<=end;j++) {
+                String temp=c+String.valueOf(j);
+                l.add(temp);
+            }
+            }
+        }
+        Collections.sort(l);
+        return l;
+    }
+}
