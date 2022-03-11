@@ -12,6 +12,11 @@ Problem Link: https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-fr
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ 
+
+ 1) List to Array
+ 
+  // T.C. O(n*n)   S.C O(n)
 class Solution {
     public ListNode removeZeroSumSublists(ListNode head) {
         int n=0;   
@@ -61,6 +66,51 @@ class Solution {
             }
         }
         return new_head.next;    
+    }
+}
+
+
+2) Prefix sum+ sliding window
+//T.C. O(n)   S.C  O(n)
+class Solution {
+    public ListNode removeZeroSumSublists(ListNode head) {
+       
+        ListNode d=new ListNode(0);
+        d.next=head;
+        ListNode new_head=d;
+        int idx=-1;
+        Map<Integer,ListNode> mp=new HashMap<>();
+        int sum=0;
+        mp.put(0,d);
+        while(head!=null)
+        {
+            sum+=head.val;
+            if(mp.containsKey(sum))
+            {
+                ListNode prev=mp.get(sum);
+                ListNode start=prev;
+                
+                
+                //skipping part till the current node
+                while(prev!=head)
+                {
+                    prev=prev.next;
+                    sum+=prev.val;
+                    if(prev!=head) mp.remove(sum);
+                }
+                
+                //pointingt to next node of last skipped node
+                start.next=head.next;
+                
+            }
+            else
+            {
+                mp.put(sum,head);
+            }
+            head=head.next;
+        }
+      
+        return d.next;    
     }
 }
 
