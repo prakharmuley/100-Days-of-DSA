@@ -1,0 +1,36 @@
+Problem Link: https://leetcode.com/problems/get-the-maximum-score/
+
+
+
+class Solution {
+    public int maxSum(int[] nums1, int[] nums2) {
+        int n1=nums1.length;
+        int n2=nums2.length;
+        int mod=1000000007;
+        int l1=0;
+        int l2=0;
+        long s1=0;
+        long s2=0;
+        long ans=0;
+        while(l1<n1&&l2<n2)
+        {
+            if(nums1[l1]<nums2[l2]) s1=((s1%mod)+(nums1[l1++]%mod))%mod;
+            else if(nums2[l2]<nums1[l1]) s2=((s2%mod)+(nums2[l2++]%mod))%mod;
+            else
+            {
+                ans+=(Math.max(s1,s2)%mod+(nums1[l1]%mod))%mod;
+                s1=0;
+                s2=0;
+                ++l1;
+                ++l2;     
+            }
+        }
+        while(l1<n1) s1+=(nums1[l1++])%mod;
+        while(l2<n2) s2+=(nums2[l2++])%mod;
+        ans+=(Math.max(s1,s2))%mod;
+        ans=ans%mod;
+        return (int)(ans);
+        
+        
+    }
+}
