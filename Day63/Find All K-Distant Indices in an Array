@@ -1,0 +1,24 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-284/problems/find-all-k-distant-indices-in-an-array/
+
+
+
+class Solution {
+    public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
+       
+        Set<Integer> hs=new HashSet<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            for(int j=0;j<nums.length;j++)
+            {
+                if(Math.abs(i-j)<=k)
+                {
+                    if(nums[j]==key) hs.add(i);
+                }
+            }
+        }
+     List<Integer> l=new ArrayList<>(hs);
+        Collections.sort(l);
+    
+    return l;
+}
+}
