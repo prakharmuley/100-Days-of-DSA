@@ -1,0 +1,43 @@
+Problem Link: https://leetcode.com/problems/maximum-frequency-stack/
+
+
+
+class FreqStack {
+    Map<Integer,Integer> mp;
+    PriorityQueue<Pair> pq;
+    int c;
+    public FreqStack() {
+        mp=new LinkedHashMap<>();
+        pq=new PriorityQueue<>((a,b)->(a.freq==b.freq?b.idx-a.idx:b.freq-a.freq));
+        c=0;
+    }
+    
+    public void push(int val) {
+        mp.put(val,mp.getOrDefault(val,0)+1);
+        Pair p=new Pair(val,mp.get(val),c++);
+        pq.offer(p);
+    }
+    
+    public int pop() {
+        mp.put(pq.peek().val,mp.get(pq.peek().val)-1);
+        return pq.poll().val;
+    }
+    class Pair{
+        int val;
+        int freq;
+        int idx;
+        public Pair(int val, int freq, int idx)
+        {
+            this.val=val;
+            this.freq=freq;
+            this.idx=idx;
+        }
+    }
+}
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack obj = new FreqStack();
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ */
