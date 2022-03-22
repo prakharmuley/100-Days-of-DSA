@@ -1,0 +1,19 @@
+Problem Link: https://leetcode.com/problems/smallest-string-with-a-given-numeric-value/
+
+
+
+class Solution {
+    public String getSmallestString(int n, int k) {
+        char ans[]=new char[n];
+        k-=n;
+        Arrays.fill(ans,'a');
+        int mn=Integer.MAX_VALUE;
+        while(n>0&&k>0)
+        {
+            mn=Math.min(25,k);
+            ans[--n]=(char)(mn+'a');
+            k-=mn;
+        }
+        return new String(ans);
+    }
+}
