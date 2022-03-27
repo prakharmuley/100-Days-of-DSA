@@ -1,0 +1,47 @@
+Problem Link: https://leetcode.com/problems/append-k-integers-with-minimal-sum/
+
+
+
+// class Solution {
+//     public long minimalKSum(int[] nums, int k) {
+//         long sum=0;
+//         Arrays.sort(nums);
+//         Set<Integer> hs=new HashSet<>();
+//         for(int x: nums)
+//         {
+//             if(!hs.contains(x)&&x<=k)
+//             {
+//                 sum+=x;
+//                 k++;
+//             }
+//             hs.add(x);
+//         }
+    
+// return ((long)k*(long)(k+1)>>1)-sum;       
+        
+//     }
+// }
+
+class Solution {
+    public long minimalKSum(int[] nums, int k) {
+        long sum=0;
+        Arrays.sort(nums);
+        int prev=-1;
+        for(int x: nums)
+        {
+           if(x==prev) continue;
+            if(x<=k)
+            {
+                sum+=x;
+                k++;
+                
+            }
+            
+            
+            prev=x;
+        }
+    
+return ((long)k*(long)(k+1)>>1)-sum;       
+        
+    }
+}
