@@ -1,0 +1,24 @@
+Problem Link: https://leetcode.com/problems/search-a-2d-matrix/
+
+
+
+class Solution {
+    public boolean searchMatrix(int[][] a, int t) {
+        int x=0;
+        int y=a[0].length-1;
+        while(x<a.length&&y>=0)
+        {
+            if(a[x][y]>t)
+            {
+                y--;
+            }
+            else if(a[x][y]<t)
+            {
+                x++;
+            }
+            else return true;
+        }
+        return false;
+        
+    }
+}
