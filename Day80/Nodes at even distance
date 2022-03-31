@@ -1,0 +1,72 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/nodes-at-even-distance0532/1#
+
+
+
+// { Driver Code Starts
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+class GFG{
+	public static void main(String [] args) throws IOException{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0)
+        {
+            int n = sc.nextInt();
+            ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+
+            for(int i = 0; i <= n; i++) {
+            	graph.add(new ArrayList<>());
+            }
+            
+            int temp = n;
+            while(temp-- > 1){
+                int u = sc.nextInt();
+                int v = sc.nextInt();
+                graph.get(u).add(v);
+                graph.get(v).add(u);
+            }
+            Solution ob = new Solution();
+            System.out.println(ob.countOfNodes(graph, n));
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution
+{
+    public void dfs(int node, ArrayList<ArrayList<Integer>> adj, boolean[] vis,int[] dis, int d)
+    {
+        
+            for(int x: adj.get(node))
+            {
+                if(!vis[x])
+                {
+                    dis[x]=d;
+                    vis[x]=true;
+                    dfs(x,adj,vis,dis,d+1);
+                }
+            }
+        
+    }
+    int countOfNodes(ArrayList<ArrayList<Integer>> graph, int n) 
+    {
+        boolean vis[]=new boolean[n+1];
+        int d[]=new int[n+1];
+        vis[1]=true;
+        d[1]=0;
+        int c=1;
+        dfs(1,graph,vis,d,c);
+        int e=0;
+        int o=0;
+        for(int i=1;i<=n;i++)
+        {
+            if(d[i]%2==1) o++;
+            else e++;
+        }
+        return (e*(e-1)/2)+(o*(o-1)/2);
+    }
+}
