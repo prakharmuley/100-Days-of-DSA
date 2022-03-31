@@ -1,0 +1,54 @@
+Problem Link: https://leetcode.com/problems/split-array-largest-sum/
+
+
+
+class Solution {
+    public boolean is_Possible_To_Partition(long minimized_max_sum,int[] a, int m)
+    {
+        long mx=0;
+        int partition_count=1;
+        for(int x: a)
+        {
+            mx+=x;
+            if(mx>minimized_max_sum)
+            {
+                mx=x;
+                ++partition_count;
+                //if partition_count exceeds m we will have to go with another minimized_max_sum value.
+                if(partition_count>m) return false;
+            }
+        }
+        return true;
+    }
+    public int splitArray(int[] a, int m) {
+        long sum=0;
+        int mx=0;
+        
+        for(int x: a)
+        {
+            sum+=x;
+            mx=Math.max(x,mx);
+        }
+        //ans will lie in between max value of array and sum of array. So we will go with binary search to check whether the mid exist in array i.e subarray sum exist or not 
+        int min_max_sum=mx;
+        long max_max_sum=sum;
+        long l=(long)mx;
+        long r=sum;
+        while(l<r)
+        {
+            long max_minimize_sum=((l+r)>>1);
+            //checking subarray sum exist or not.
+            //if exist will minimize it
+            //else increase it
+            if(is_Possible_To_Partition(max_minimize_sum,a,m))
+            {
+                r=max_minimize_sum;
+            }
+            else
+            {
+                l=max_minimize_sum+1;
+            }
+        }
+        return (int)r;
+    }
+}
