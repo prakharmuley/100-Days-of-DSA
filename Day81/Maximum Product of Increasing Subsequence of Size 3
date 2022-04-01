@@ -1,0 +1,104 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/maximum-product-of-increasing-subsequence-of-size-32027/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+
+//Initial Template for Java
+
+//Initial Template for Java
+
+
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+
+
+class Array {
+    
+    // Driver code
+	public static void main (String[] args) throws IOException{
+		// Taking input using buffered reader
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int testcases = Integer.parseInt(br.readLine());
+		
+		// looping through all testcases
+		while(testcases-- > 0){
+		    String line = br.readLine();
+		    String[] element = line.trim().split("\\s+");
+		    int N = Integer.parseInt(element[0]);
+		    int arr [] = new int[N];
+		    line = br.readLine();
+		    String[] elements = line.trim().split("\\s+");
+		    for(int i = 0;i<N;i++){
+	            arr[i] = Integer.parseInt(elements[i]);    
+	        }
+	        
+		    Solution obj = new Solution();
+		    ArrayList<Integer> ans;
+		    ans = obj.maxProductSubsequence(arr, N);
+        	if(ans.get(0) == -1)
+        	    System.out.println("Not Present");
+        	else{
+        	    for(int i: ans)
+        	        System.out.print(i + " ");
+        	    System.out.println();
+        	}
+        	
+		}
+	}
+}
+
+
+// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{   
+    public static ArrayList<Integer> maxProductSubsequence (int arr[], int n) {
+      ArrayList<Integer> ans=new ArrayList<>();
+       long mx=0;    
+       if(n<3){
+           ans.add(-1);
+           return ans;
+       }
+       int a=0,b=0,c=0;
+       TreeSet<Integer> ts=new TreeSet<>();
+       ts.add(arr[0]);
+       
+       //find max element it may or may not be part of sequence
+       for(int i=1;i<n;i++)
+           c=Math.max(arr[i],c);
+           
+       for(int i=1;i<n;i++){
+          if(arr[i]==c){
+              c=0;
+              //when max may not be part then we will go for second highest to the right of max
+              for(int j=i+1;j<n;j++)
+                  c=Math.max(arr[j],c);
+          }
+          //findind middle element such that it is less than max and more than first element
+           if(arr[i]>ts.first() && arr[i]<c){
+               a=ts.floor(arr[i]-1);
+               b=arr[i];
+               long temp=(long) a*b*c;
+               if(temp>mx){
+                   ans.clear();
+                   mx=temp;
+                   ans.add(a);
+                   ans.add(b);
+                   ans.add(c);
+               }
+           }
+           ts.add(arr[i]);
+       }
+       if(mx==0)
+           ans.add(-1);
+       return ans;       
+    }    
+}
+
