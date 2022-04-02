@@ -1,0 +1,19 @@
+Problem Link: https://leetcode.com/contest/biweekly-contest-75/problems/minimum-bit-flips-to-convert-number/
+
+
+
+class Solution {
+    public int minBitFlips(int start, int goal) {
+        int A=start;
+        int B=goal;
+        int count = 0;
+ 
+   
+    for (int i = 0; i < 32; i++) {
+        if (((A >> i) & 1) != ((B >> i) & 1)) {
+            count++;
+        }
+    }
+        return count;
+    }
+}
