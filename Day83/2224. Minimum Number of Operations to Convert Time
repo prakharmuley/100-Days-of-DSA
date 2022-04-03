@@ -1,0 +1,26 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-287/problems/minimum-number-of-operations-to-convert-time/
+
+
+
+class Solution {
+    public int convertTime(String current, String correct) {
+      
+        
+        
+        int x=Integer.parseInt(current.substring(0,2))*60+Integer.parseInt(current.substring(3,5));
+        int y=Integer.parseInt(correct.substring(0,2))*60+Integer.parseInt(correct.substring(3,5));
+        int z=y-x;
+        int ans = 0;
+        while(z>0)
+        {
+            if(z>=60)z-=60;
+            else if(z>=15)z-=15;
+            else if(z>=5)z-=5;
+            else z--;
+            ans++;
+            if(z == 0)return ans;
+        }
+        return ans;
+        
+    }
+}
