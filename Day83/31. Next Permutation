@@ -1,0 +1,72 @@
+Problem Link: https://leetcode.com/problems/next-permutation/
+
+
+
+class Solution {
+     public int largest_index(int[] nums, int idx)
+    {
+        int mx=Integer.MIN_VALUE;
+        int idxx=-1;
+        for(int i=nums.length-1;i>=idx;i--)
+        {
+            if(mx<=nums[i])
+            {
+                mx=nums[i];
+                idxx=i;
+            }
+        }
+         return idxx;
+    }
+    public int smallest_index(int[] nums, int idx)
+    {
+        int mn=Integer.MAX_VALUE;
+        int idxx=-1;
+        for(int i=nums.length-1;i>=idx;i--)
+        {
+            if(mn>=nums[i])
+            {
+                mn=nums[i];
+                idxx=i;
+            }
+        }
+        return idxx;
+    }
+    public void reverse(int i, int j, int[] nums)
+    {
+        while(i<j)
+        {
+            nums[i]^=nums[j];
+            nums[j]^=nums[i];
+            nums[i]^=nums[j];
+            
+            i++;
+            j--;
+        }
+    }
+    public void nextPermutation(int[] nums) {
+        int i=0;
+        //1 2 4 3
+        for(i=nums.length-2;i>=0;i--)
+        {                                   //   -  -
+            if(nums[i]<nums[i+1]) break;    //1  2  4  3     2<4
+            
+        }
+        if(i==-1)
+        {
+            reverse(i+1,nums.length-1,nums);
+        }
+        else
+        {
+            
+            int j=0;
+            for(j=nums.length-1;j>=i;j--)    //   i   j 
+            {                                // 1 2 4 3   3>2
+                if(nums[i]<nums[j]) break;
+            }
+            nums[j]^=nums[i];               //  i i+1  j
+            nums[i]^=nums[j];               //1 3  4   2
+            nums[j]^=nums[i];
+            reverse(i+1,nums.length-1,nums); //1 3 2    4
+        }
+    }
+}
