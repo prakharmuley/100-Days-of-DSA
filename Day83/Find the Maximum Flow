@@ -1,0 +1,113 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/find-the-maximum-flow2126/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+import java.io.*;
+import java.util.*; 
+class GFG{
+    public static void main(String args[]) throws IOException { 
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        
+        while(t-- > 0){
+    
+            String input_line[] = read.readLine().trim().split("\\s+");
+            int N = Integer.parseInt(input_line[0]);
+            int M = Integer.parseInt(input_line[1]);
+            
+            ArrayList<ArrayList<Integer>> Edges = new ArrayList<ArrayList<Integer>>();
+            input_line = read.readLine().trim().split("\\s+");
+            for(int i=0;i<M;i++)
+            {
+                ArrayList<Integer> e = new ArrayList<Integer>();
+                e.add(Integer.parseInt(input_line[3*i]));
+                e.add(Integer.parseInt(input_line[3*i+1]));
+                e.add(Integer.parseInt(input_line[3*i+2]));
+                Edges.add(e);
+            }
+            Solution ob = new Solution();
+            int ans = ob.solve(N, M, Edges); 
+            System.out.println(ans);
+        }
+    } 
+} // } Driver Code Ends
+
+
+//User function Template for Java
+class Pair{
+    int x,y;
+    public Pair(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+}
+class Solution 
+{ 
+    public static int bfs(int[][] g, int[] par,int src, int dest, int n)
+    {
+        int mn=Integer.MAX_VALUE;
+        Arrays.fill(par,-1);
+        boolean[] v=new boolean[n];
+        par[src]=-2;
+        Queue<Pair> q=new LinkedList<>();
+        q.offer(new Pair(src,mn));
+        while(!q.isEmpty())
+        {
+            Pair p=q.poll();
+            int node=p.x;
+            int flow=p.y;
+            for(int i=0;i<n;i++)
+            {
+                if(g[node][i]!=0)
+                {
+                    if(par[i]==-1)
+                    {
+                        par[i]=node;
+                        int new_flow=Math.min(flow,g[node][i]);
+                         if(i==dest) return new_flow;
+                         q.offer(new Pair(i,new_flow));
+                    }
+                    
+                }
+            }
+        }
+        return 0;
+        
+    }
+    public static int fordFulkerson(int[][] g, int src, int sink, int n)
+    {
+        int p[]=new int[n];
+        Arrays.fill(p,-1);
+        int flow=0;
+        while(bfs(g,p,src,sink,n)!=0)
+        {
+            int min=bfs(g,p,src,sink,n);
+            flow+=min;
+            int destination=sink;
+            while(src!=destination)
+            {
+                int prev=p[destination];
+                g[prev][destination]-=min;
+                g[destination][prev]+=min;
+                destination=prev;
+            }
+            
+        }
+        return flow;
+    }
+    int solve(int n, int m, ArrayList<ArrayList<Integer>> edges) 
+    { 
+        int g[][]=new int[n][n];
+        for(int i=0;i<edges.size();i++)
+        {
+            int u=edges.get(i).get(0)-1;
+            int v=edges.get(i).get(1)-1;
+            int w=edges.get(i).get(2);
+            g[u][v]+=w;
+            g[v][u]+=w;
+        }
+        return fordFulkerson(g,0,n-1,n);
+    }
+}
