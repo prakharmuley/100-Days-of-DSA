@@ -1,0 +1,70 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/previous-number-in-one-swap5707/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+import java.io.*;
+import java.util.*;
+
+class GFG
+{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while(t-- > 0)
+        {
+            String S = read.readLine();
+
+            Solution ob = new Solution();
+            System.out.println(ob.previousNumber(S));
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+class Solution{
+    static String previousNumber(String s){
+        char ch[]=s.toCharArray();
+        int i=0;
+        int pos1=-1;
+        for(i=ch.length-2;i>=0;i--)
+        {
+            if(ch[i]-'0'>ch[i+1]-'0')
+            {
+               pos1=i;
+                break;
+            }
+        }
+        if(pos1==-1) return "-1";
+        int idx=-1;
+        int val=ch[pos1]-'0';
+        int mx=Integer.MIN_VALUE;
+        int pos2=-1;
+        for(int j=ch.length-1;j>pos1;j--)
+        {
+            if(ch[j]-'0'<ch[pos1]-'0')
+            {
+                 
+                 pos2=j;
+                 break;
+                
+            }
+            
+        }
+       
+         while(pos2-1>=0&&ch[pos2]==ch[pos2-1]) pos2--;
+        if(pos2!=-1){
+        char temp=ch[pos2];
+       ch[pos2]=ch[pos1];
+       ch[pos1]=temp;
+        }
+          if(ch[0]=='0') return "-1";
+        
+       
+        return new String(ch);
+    }
+}
