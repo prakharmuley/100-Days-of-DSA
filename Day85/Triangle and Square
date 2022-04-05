@@ -1,0 +1,33 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/3f48d387900a38bd9fd0594b93f9f4f97f5ada8a1644/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+
+class GFG{
+	public static void main(String [] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int test = Integer.parseInt(br.readLine());
+		while(test-- > 0) {
+			int B = Integer.parseInt(br.readLine());
+			Solution obj = new Solution();
+			int count = obj.countSquare(B);
+			System.out.println(count);
+		}
+	}
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{
+	int countSquare(int B){
+		if(B>2) { B>>=1; B-=1; return B*(B+1)/2;}
+		return 0;
+		
+	}
+}
