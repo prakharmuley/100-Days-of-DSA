@@ -1,0 +1,35 @@
+Problem Link: https://leetcode.com/problems/3sum-with-multiplicity/
+
+
+
+
+class Solution {
+    public int threeSumMulti(int[] a, int t) {
+       int m=1_000_000_007;
+        long r=0;
+        long c[]=new long[101];
+        for(int i: a) c[i]++;
+        
+        for(int i=0;i<=100;i++)
+        {
+            for(int j=i;j<=100;j++)
+            {
+                int k=t-i-j;
+                if(k<0||k>100) continue;
+                if(i==j&&j==k) //all equal
+                {
+                    r+=(((c[i]%m)*((c[i]-1)%m)*((c[i]-2)%m))/6)%m;
+                }
+                else if(i==j&&i!=k) // 2 equal 1 different
+                {
+                    r+=(((((c[i])%m)*((c[i]-1)%m)*(c[k])%m))/2)%m;
+                }
+                else if(i<j&&j<k) //all 3 different
+                {
+                    r+=(((c[i])%m)*((c[j])%m)*((c[k])%m))%m;
+                }
+            }
+        }
+        return (int)r;   
+    }
+}
