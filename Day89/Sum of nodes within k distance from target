@@ -1,0 +1,193 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/ebb840c27b36a8c8ad121fd576a2fa6f2bc1e6f2/1#
+
+
+
+// { Driver Code Starts
+import java.util.LinkedList; 
+import java.util.Queue; 
+import java.io.*;
+import java.util.*;
+
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+
+class GfG {
+    
+    static Node buildTree(String str){
+        
+        if(str.length()==0 || str.charAt(0)=='N'){
+            return null;
+        }
+        
+        String ip[] = str.split(" ");
+        // Create the root of the tree
+        Node root = new Node(Integer.parseInt(ip[0]));
+        // Push the root to the queue
+        
+        Queue<Node> queue = new LinkedList<>(); 
+        
+        queue.add(root);
+        // Starting from the second element
+        
+        int i = 1;
+        while(queue.size()>0 && i < ip.length) {
+            
+            // Get and remove the front of the queue
+            Node currNode = queue.peek();
+            queue.remove();
+                
+            // Get the current node's value from the string
+            String currVal = ip[i];
+                
+            // If the left child is not null
+            if(!currVal.equals("N")) {
+                    
+                // Create the left child for the current node
+                currNode.left = new Node(Integer.parseInt(currVal));
+                // Push it to the queue
+                queue.add(currNode.left);
+            }
+                
+            // For the right child
+            i++;
+            if(i >= ip.length)
+                break;
+                
+            currVal = ip[i];
+                
+            // If the right child is not null
+            if(!currVal.equals("N")) {
+                    
+                // Create the right child for the current node
+                currNode.right = new Node(Integer.parseInt(currVal));
+                    
+                // Push it to the queue
+                queue.add(currNode.right);
+            }
+            i++;
+        }
+        
+        return root;
+    }
+    
+	public static void main (String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int t=Integer.parseInt(br.readLine());
+        
+        while(t > 0){
+            String line = br.readLine().trim();
+            Node root = buildTree(line);
+            
+            line = br.readLine().trim();
+            String target_k[] = line.split(" ");
+            int target = Integer.parseInt(target_k[0]);
+            int k = Integer.parseInt(target_k[1]);
+            
+            solver x = new solver();
+            System.out.println( x.sum_at_distK(root, target, k) );
+            t--;
+        }
+    }
+}
+
+// } Driver Code Ends
+
+
+/*
+// node structure:
+
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+
+*/
+
+class solver{
+    static Node target_node=null;
+    public static void mark_Parent(Node root, Map<Node,Node> child_par, int target)
+    {
+        Queue<Node> q=new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty())
+        {
+            int n=q.size();
+            for(int i=1;i<=n;i++)
+            {
+                Node cur=q.poll();
+                if(target==cur.data) target_node=cur;
+                if(cur.left!=null)
+                {
+                    child_par.put(cur.left,cur);
+                    q.offer(cur.left);
+                }
+                if(cur.right!=null)
+                {
+                    child_par.put(cur.right,cur);
+                    q.offer(cur.right);
+                }
+            }
+        }
+    }
+    static int sum_at_distK(Node root, int target, int k){
+        Map<Node,Node> par=new HashMap<>();
+        Map<Node,Boolean> vis=new HashMap<>();
+        Queue<Node> q=new LinkedList<>();
+        mark_Parent(root,par,target);
+        q.offer(target_node);
+        vis.put(target_node,true);
+        int d=0;
+        int ans=0;
+        while(!q.isEmpty())
+        {
+            int n=q.size();
+            if(d==k) break; 
+            d++;
+            for(int i=1;i<=n;i++)
+            {
+             Node cur=q.poll();
+             ans+=cur.data;
+             if(cur.left!=null&&vis.get(cur.left)==null) 
+             {
+                 q.offer(cur.left);
+                 vis.put(cur.left,true);
+             }
+             if(cur.right!=null&&vis.get(cur.right)==null) 
+             {
+                 q.offer(cur.right);
+                 vis.put(cur.right,true);
+             }
+             if(cur!=null&&par.get(cur)!=null&&vis.get(par.get(cur))==null)
+             {
+                 q.offer(par.get(cur));
+                 vis.put(par.get(cur),true);
+             }
+            }
+        }
+      
+        while(!q.isEmpty())
+        {
+            Node n=q.peek();
+            ans+=n.data;
+            q.poll();
+        }
+       
+        return ans;
+    }
+}
+
