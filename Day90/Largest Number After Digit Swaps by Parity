@@ -1,0 +1,49 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-288/problems/largest-number-after-digit-swaps-by-parity/
+
+
+
+class Solution {
+    public int largestInteger(int num) {
+        int h[]=new int[10];
+        String s=Integer.toString(num);
+        char ch[]=s.toCharArray();
+        for(char c: ch) h[c-'0']++;
+        boolean e[]=new boolean[ch.length];
+        for(int i=0;i<ch.length;i++)
+        {
+            if((ch[i]-'0')%2==0) e[i]=true;
+        }
+        int ans=0;
+        for(int i=0;i<ch.length;i++)
+        {
+            
+                if(e[i])
+                {
+                    for(int j=8;j>=0;j-=2)
+                    {
+                        if(h[j]>0)
+                        {
+                            ch[i]=(char)(j+'0');
+                            h[j]--;
+                            break;
+                        }
+                    }
+                }
+            else
+            {
+                for(int j=9;j>=1;j-=2)
+                    {
+                        if(h[j]>0)
+                        {
+                            ch[i]=(char)(j+'0');
+                            h[j]--;
+                            break;
+                        }
+                    }
+            }
+            
+        }
+        String ss=new String(ch);
+        return Integer.parseInt(ss);
+    }
+}
