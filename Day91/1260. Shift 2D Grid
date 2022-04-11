@@ -1,0 +1,57 @@
+Problem Link: https://leetcode.com/problems/shift-2d-grid/
+
+
+
+class Solution {
+    public static void grid_to_arrayList(int[][] g, List<List<Integer>> res)
+    {
+      for(int []r: g)
+        {
+            List<Integer> l=new ArrayList<>();
+            for(int x: r) l.add(x);   
+            res.add(l);
+        }  
+    }
+    public static void last_col_to_next_row_first_col(int[][] g, int[] column)
+    {
+         for(int i=0;i+1<g.length;i++)
+         {   
+                g[i+1][0]=column[i];    
+         }  
+    }
+    public static void shift_row_to_right(int[][] g)
+    {
+        for(int i=0;i<g.length;i++)
+         {         
+            for(int j=g[i].length-2;j>=0;j--)
+            {
+                g[i][j+1]=g[i][j];      
+            }     
+         } 
+    }
+    public static void store_last_column(int[] col, int n, int m, int [][]g)
+    {
+         for(int i=0;i<n;i++)
+        {
+            col[i]=g[i][m-1];
+        }
+    }
+    public List<List<Integer>> shiftGrid(int[][] g, int k) {
+        List<List<Integer>> res=new ArrayList<>();
+        int n=g.length;
+        int m=g[0].length;
+        int column[]=new int[n];
+        k=k%(m*n);  
+        
+        while(k-->0)
+        {
+         store_last_column(column,n,m,g);   
+         shift_row_to_right(g);
+         last_col_to_next_row_first_col(g,column);
+         g[0][0]=column[n-1];  
+        }
+        grid_to_arrayList(g,res);
+        
+        return res;
+    }
+}
