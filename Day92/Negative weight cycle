@@ -1,0 +1,80 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/negative-weight-cycle3504/1#
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String[] S1 = br.readLine().trim().split(" ");
+            int n = Integer.parseInt(S1[0]);
+            int m = Integer.parseInt(S1[1]);
+            int[][] edges = new int[m][3];
+            for(int i = 0; i < m; i++){
+                String S2[] = br.readLine().trim().split(" ");
+                for(int j = 0; j < 3; j++)
+                    edges[i][j] = Integer.parseInt(S2[j]);
+            }
+            Solution obj = new Solution();
+            int ans = obj.isNegativeWeightCycle(n, edges);
+            System.out.println(ans);
+        }
+    }
+}
+// } Driver Code Ends
+
+
+//User function Template for Java
+ class Pair{
+    int v;
+    int wt;
+    public Pair(int v, int wt)
+    {
+        this.v=v;
+        this.wt=wt;
+    }
+}
+class Solution
+{
+    public boolean check_cycle(int node, ArrayList<Pair>[] adj, boolean[] vis, int weight, int src)
+    {
+       vis[node]=true;
+      
+       for(Pair p: adj[node])
+       {
+           
+           if(!vis[p.v])
+           {
+               if(check_cycle(p.v,adj,vis,weight+p.wt,src)) return true;
+           }
+           else if(p.v==src&&weight+p.wt<0) return true;
+           
+       }
+       
+       
+       return false;
+    }
+    public int isNegativeWeightCycle(int n, int[][] edges)
+    {
+        ArrayList<Pair>[] adj=new ArrayList[101];
+        for(int i=0;i<101;i++) adj[i]=new ArrayList<>();
+        for(int i=0;i<edges.length;i++) adj[edges[i][0]].add(new Pair(edges[i][1],edges[i][2]));
+      
+        for(int i=0;i<101;i++)
+        {
+              boolean vis[]=new boolean[101];
+            if(check_cycle(i,adj,vis,0,i)) return 1;
+        }
+        return 0;
+    }
+}
