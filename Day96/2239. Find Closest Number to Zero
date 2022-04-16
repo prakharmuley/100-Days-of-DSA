@@ -1,0 +1,25 @@
+Problem Link: https://leetcode.com/contest/biweekly-contest-76/problems/find-closest-number-to-zero/
+
+
+
+class Solution {
+    public int findClosestNumber(int[] A) {
+        Arrays.sort(A);
+        
+        int ans=Integer.MIN_VALUE;
+        int mn=Integer.MAX_VALUE;
+        for(int i=0;i<A.length;i++)
+        {
+            if(Math.abs(0-A[i])<mn)
+            {
+                mn=Math.abs(0-A[i]);
+                
+            }
+            if(mn==Math.abs(0-A[i]))
+            {
+                ans=Math.max(ans,A[i]);
+            }
+        }
+        return ans;
+    }
+}
