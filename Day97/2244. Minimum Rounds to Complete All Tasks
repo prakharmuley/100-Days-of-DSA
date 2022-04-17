@@ -1,0 +1,21 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-289/problems/minimum-rounds-to-complete-all-tasks/
+
+
+
+class Solution {
+    public int minimumRounds(int[] a) {
+        Map<Integer,Integer> mp=new HashMap<>();
+        for(int x: a) mp.put(x,mp.getOrDefault(x,0)+1);
+        int ans=0;
+        for(Map.Entry<Integer,Integer> e: mp.entrySet())
+        {
+            if(e.getValue()==1) return -1;
+            if((e.getValue()+2)%3==0) ans+=(e.getValue()+2)/3;
+            else if((e.getValue()+1)%3==0) ans+=((e.getValue()+1)/3);
+            else if(e.getValue()%3==0) ans+=(e.getValue()/3);
+            else if(e.getValue()%2==0) ans+=(e.getValue()/2);
+        }
+               return ans;
+    }
+               
+}
