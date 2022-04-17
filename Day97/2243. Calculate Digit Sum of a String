@@ -1,0 +1,44 @@
+Problem Link: https://leetcode.com/contest/weekly-contest-289/problems/calculate-digit-sum-of-a-string/
+
+
+
+class Solution {
+    public String digitSum(String s, int k) {
+        StringBuilder sb=new StringBuilder(s);
+       if(k>=s.length()) return s;
+      
+      
+        int i=0;
+       
+        while(sb.length()>=k)
+        {
+            StringBuilder sbb=new StringBuilder(); 
+           for(i=0;i<sb.length();i+=k)
+           {
+               int sum=0;
+               if(i+k<sb.length()){
+               for(int j=i;j<i+k;j++)
+               {
+                  sum+=(sb.charAt(j)-'0'); 
+               }
+                   sbb.append(String.valueOf(sum));
+               }
+               else
+               {
+                   for(int j=i;j<sb.length();j++)
+               {
+                  sum+=(sb.charAt(j)-'0'); 
+               }
+                   sbb.append(String.valueOf(sum)); 
+               }       
+          }           
+            System.out.print(sb.toString()+"\n");
+            if(sb.length()<=k) return sb.toString();
+            sb.setLength(0);
+            sb.append(sbb);
+           
+        }
+        return sb.toString();
+        
+    }
+}
