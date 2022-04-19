@@ -1,0 +1,97 @@
+Problem Link: https://practice.geeksforgeeks.org/problems/partition-a-linked-list-around-a-given-value/1
+
+
+
+// { Driver Code Starts
+//Initial Template for Java
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node next;
+    Node(int key) {
+        data = key;
+        next = null;
+    }
+}
+
+class Partition {
+    static Node head;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int a1 = sc.nextInt();
+            Node head = new Node(a1);
+            Node tail = head;
+            for (int i = 1; i < n; i++) {
+                int a = sc.nextInt();
+                // addToTheLast(new Node(a));
+                tail.next = new Node(a);
+                tail = tail.next;
+            }
+
+            int k = sc.nextInt();
+            Solution ob = new Solution();
+            Node res = ob.partition(head, k);
+            printList(res);
+            System.out.println();
+        }
+    }
+
+    public static void printList(Node node) {
+        while (node != null) {
+            System.out.print(node.data + " ");
+            node = node.next;
+        }
+    }
+}// } Driver Code Ends
+
+
+// User function Template for Java
+
+/*class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+
+*/
+
+class Solution {
+    public static Node partition(Node node, int x) {
+        Node sNodes = new Node(0);
+Node gNodes = new Node(0);
+Node eNodes = new Node(0);
+Node sTemp = sNodes;
+Node gTemp = gNodes;
+Node eTemp = eNodes;
+while(node != null){
+if(node.data < x){
+sNodes.next = new Node(node.data);
+sNodes = sNodes.next;
+}else if(node.data == x) {
+eNodes.next = new Node(node.data);
+eNodes = eNodes.next;
+}else{
+gNodes.next = new Node(node.data);
+gNodes = gNodes.next;
+}
+node = node.next;
+}
+eNodes.next = gTemp.next;
+sNodes.next = eTemp.next;
+return sTemp.next;
+}
+    
+}
